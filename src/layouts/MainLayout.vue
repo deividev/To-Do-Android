@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          To Do Multi-platform
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>Deividev</div>
       </q-toolbar>
     </q-header>
 
