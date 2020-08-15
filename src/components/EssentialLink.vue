@@ -2,7 +2,7 @@
   <q-item
     clickable
     tag="a"
-    target="_blank"
+
     :href="link"
   >
     <q-item-section
@@ -14,7 +14,7 @@
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>
+      <q-item-label class="text-grey-1"  caption>
         {{ caption }}
       </q-item-label>
     </q-item-section>
@@ -47,3 +47,4 @@ export default {
   }
 }
 </script>
+
