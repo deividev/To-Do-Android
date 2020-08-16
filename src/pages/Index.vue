@@ -33,6 +33,7 @@
         color="green-6"
         @click="item.state = !item.state">Complete</q-btn>
       <q-btn
+        @click="clean(index)"
         color="red">Delete</q-btn>
     </q-card>
   </div>
@@ -64,6 +65,9 @@ export default {
         icon: 'cloud_done'
       })
     },
+    clean(index) {
+      this.tasks.splice(index, 1)
+    }
   }
 }
 </script>
