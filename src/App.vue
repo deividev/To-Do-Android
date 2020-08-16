@@ -9,10 +9,4 @@ export default {
 }
 </script>
 
-<style lang="sass">
-div
-  color: $green-12
 
-body
-  background-color: #282830
-</style>
