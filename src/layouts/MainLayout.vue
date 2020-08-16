@@ -105,6 +105,7 @@ export default {
   }
 }
 </script>
+
 <style lang="sass">
 .q-toolbar
   color: $green-12

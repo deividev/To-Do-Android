@@ -19,12 +19,14 @@
       }"
       :toolbar="[
         ['bold', 'italic', 'strike', 'underline'],
-        ['upload', 'save']
+        ['save']
       ]"
     />
 
-    <q-card dark flat bordered>
-      <q-card-section v-html="editor" />
+    <q-card dark flat bordered v-for="(item, index) in tasks" :key="index">
+      <q-card-section v-html="item.title" />
+      <q-btn color="green-6">Complete</q-btn>
+      <q-btn color="red">Delete</q-btn>
     </q-card>
   </div>
 </template>
@@ -34,26 +36,27 @@ export default {
   name: 'PageIndex',
   data() {
     return {
-      editor: ''
+      editor: '',
+      tasks: [
+        {title: 'Tarea1', state: false},
+        {title: 'Tarea2', state: false},
+        {title: 'Tarea3', state: true},
+      ]
     }
   },
   methods: {
     saveWork () {
+      this.tasks.push({
+        title: this.editor,
+        state: false,
+      })
       this.$q.notify({
-        message: 'Saved your text to local storage',
-        color: 'white',
-        textColor: 'green-9',
+        message: 'Saved task',
+        color: 'green-8',
+        textColor: 'white',
         icon: 'cloud_done'
       })
     },
-    uploadIt () {
-      this.$q.notify({
-        message: 'Server unavailable. Check connectivity.',
-        color: 'red-5',
-        textColor: 'white',
-        icon: 'warning'
-      })
-    }
   }
 }
 </script>
