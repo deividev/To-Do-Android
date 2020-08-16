@@ -23,10 +23,17 @@
       ]"
     />
 
-    <q-card dark flat bordered v-for="(item, index) in tasks" :key="index">
-      <q-card-section v-html="item.title" />
-      <q-btn color="green-6">Complete</q-btn>
-      <q-btn color="red">Delete</q-btn>
+    <q-card class="row"
+      dark flat bordered v-for="(item, index) in tasks" :key="index">
+      <q-card-section
+        :class="item.state ? 'through' : ''"
+        class="col"
+        v-html="item.title" />
+      <q-btn
+        color="green-6"
+        @click="item.state = !item.state">Complete</q-btn>
+      <q-btn
+        color="red">Delete</q-btn>
     </q-card>
   </div>
 </template>
@@ -67,4 +74,7 @@ export default {
 
 body
   background-color: #282830
+
+.through
+  text-decoration: line-through
 </style>
