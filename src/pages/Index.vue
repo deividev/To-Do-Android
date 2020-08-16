@@ -1,23 +1,27 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-full.svg"
-    >
-  </q-page>
+  <div class="q-pa-md q-gutter-sm">
+    <q-editor dark v-model="editor" min-height="5rem" />
+
+    <q-card dark flat bordered>
+      <q-card-section>
+        <pre style="white-space: pre-line">{{ editor }}</pre>
+      </q-card-section>
+    </q-card>
+
+    <q-card dark flat bordered>
+      <q-card-section v-html="editor" />
+    </q-card>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  data() {
+    return {
+      editor: ''
+    }
+  }
 }
 </script>
 
-<style lang="sass">
-div
-  color: $green-12
-
-body
-  background-color: #282830
-
-</style>
