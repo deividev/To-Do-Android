@@ -36,6 +36,11 @@
         @click="clean(index)"
         color="red">Delete</q-btn>
     </q-card>
+
+    <div class="flex flex-center text-white" v-if="tasks.length == 0">
+      <h6>No tasks</h6>
+    </div>
+
   </div>
 </template>
 
@@ -46,9 +51,9 @@ export default {
     return {
       editor: '',
       tasks: [
-        {title: 'Tarea1', state: false},
-        {title: 'Tarea2', state: false},
-        {title: 'Tarea3', state: true},
+        // {title: 'Tarea1', state: false},
+        // {title: 'Tarea2', state: false},
+        // {title: 'Tarea3', state: true},
       ]
     }
   },
@@ -60,20 +65,34 @@ export default {
       })
       this.$q.notify({
         message: 'Saved task',
-        color: 'green-8',
+        color: 'green-6',
         textColor: 'white',
         icon: 'cloud_done'
       })
     },
     clean(index) {
-      this.tasks.splice(index, 1)
+      this.$q.dialog({
+        dark: true,
+        title: 'Confirm',
+        message: 'Are you sure you want to delete?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        this.tasks.splice(index, 1)
+      })
     }
   }
 }
 </script>
 
 <style lang="sass">
-.q-editor, .q-card
+.text-white
+  color: white
+
+.q-card
+  color: white
+
+.q-editor
   color: $green-12
 
 body
