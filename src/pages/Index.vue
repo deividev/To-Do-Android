@@ -19,8 +19,8 @@
     <q-card class="row q-pa-md q-gutter-sm"
       dark flat bordered v-for="(item, index) in tasks" :key="index">
       <q-toggle
-        @click="value = !value"
-        v-model="item.value"
+        @click="green = !green"
+        v-model="green"
         color="green"
       />
       <q-card-section
@@ -49,7 +49,7 @@ export default {
   name: 'PageIndex',
   data() {
     return {
-      value: false,
+      green: false,
       editor: '',
       tasks: [
         // {title: 'Tarea1', state: false},
