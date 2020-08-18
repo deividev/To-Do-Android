@@ -18,7 +18,6 @@ module.exports = function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
-
       'axios',
     ],
 
@@ -164,6 +163,7 @@ module.exports = function (/* ctx */) {
       bundler: 'packager', // 'packager' or 'builder'
 
       packager: {
+        platform: 'linux'
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
 
         // OS X / Mac App Store

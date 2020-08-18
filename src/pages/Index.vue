@@ -10,31 +10,31 @@
           label: 'Save',
           handler: saveWork
         },
-        upload: {
-          tip: 'Upload to cloud',
-          icon: 'cloud_upload',
-          label: 'Upload',
-          handler: uploadIt
-        }
       }"
       :toolbar="[
         ['bold', 'italic', 'strike', 'underline'],
         ['save']
       ]"
     />
-
-    <q-card class="row"
+    <q-card class="row q-pa-md q-gutter-sm"
       dark flat bordered v-for="(item, index) in tasks" :key="index">
+      <q-toggle
+        @click="value = !value"
+        v-model="item.value"
+        color="green"
+      />
       <q-card-section
         :class="item.state ? 'through' : ''"
         class="col"
         v-html="item.title" />
-      <q-btn
-        color="green-6"
-        @click="item.state = !item.state">Complete</q-btn>
-      <q-btn
-        @click="clean(index)"
-        color="red">Delete</q-btn>
+
+
+      <q-btn class="q-pa-xs"
+        rounded color="primary"
+        @click="item.state = !item.state">Edit</q-btn>
+      <q-btn class="q-pa-xs"
+        rounded color="red"
+        @click="clean(index)">Delete</q-btn>
     </q-card>
 
     <div class="flex flex-center text-white" v-if="tasks.length == 0">
@@ -49,6 +49,7 @@ export default {
   name: 'PageIndex',
   data() {
     return {
+      value: false,
       editor: '',
       tasks: [
         // {title: 'Tarea1', state: false},
@@ -63,9 +64,10 @@ export default {
         title: this.editor,
         state: false,
       })
+      this.editor = '';
       this.$q.notify({
         message: 'Saved task',
-        color: 'green-6',
+        color: 'green-8',
         textColor: 'white',
         icon: 'cloud_done'
       })
@@ -75,9 +77,16 @@ export default {
         dark: true,
         title: 'Confirm',
         message: 'Are you sure you want to delete?',
+        color: 'warning',
         cancel: true,
         persistent: true
       }).onOk(() => {
+        this.$q.notify({
+        message: 'Delete task',
+        color: 'red',
+        textColor: 'white',
+        icon: 'cloud_done'
+      })
         this.tasks.splice(index, 1)
       })
     }
@@ -92,12 +101,14 @@ export default {
 .q-card
   color: white
 
+.text-amber
+  color: $green-12
+
 .q-editor
   color: $green-12
 
 body
   background-color: #282830
-
 .through
   text-decoration: line-through
 </style>
