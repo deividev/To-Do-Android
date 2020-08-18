@@ -45,20 +45,35 @@
 </template>
 
 <script>
+import { db } from "boot/firebase";
 export default {
   name: 'PageIndex',
   data() {
     return {
       green: false,
       editor: '',
-      tasks: [
-        // {title: 'Tarea1', state: false},
-        // {title: 'Tarea2', state: false},
-        // {title: 'Tarea3', state: true},
-      ]
+      tasks: []
     }
   },
+  created(){
+    this.listTasks();
+  },
   methods: {
+    async listTasks(){
+      try {
+        const resDb = await db.collection('Tasks').get();
+        resDb.forEach(res => {
+          const task = {
+            id: res.id,
+            title: res.data().title,
+            state: res.data().state
+          }
+          this.tasks.push(task);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
     saveWork () {
       this.tasks.push({
         title: this.editor,
