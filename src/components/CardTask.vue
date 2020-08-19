@@ -3,8 +3,8 @@
     <q-card class="row q-pa-md q-gutter-sm"
       dark flat bordered v-for="(item, index) in tasks" :key="index">
       <q-toggle
-        @click="green = !green"
-        v-model="green"
+        @click="item.state = !item.state"
+        v-model="item.state"
         color="green"
       />
       <q-card-section
@@ -28,64 +28,63 @@ import { db } from "boot/firebase";
 export default {
   components: {},
   name: 'CardTask',
+  props: ['tasks',],
   data() {
     return {
-      green: false,
-      editor: '',
-      tasks: []
+      state: false,
     }
   },
-  created(){
-    this.listTasks();
-  },
-  methods: {
-    async listTasks(){
-      try {
-        const resDb = await db.collection('Tasks').get();
-        resDb.forEach(res => {
-          const task = {
-            id: res.id,
-            title: res.data().title,
-            state: res.data().state
-          }
-          this.tasks.push(task);
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    saveWork () {
-      this.tasks.push({
-        title: this.editor,
-        state: false,
-      })
-      this.editor = '';
-      this.$q.notify({
-        message: 'Saved task',
-        color: 'green-8',
-        textColor: 'white',
-        icon: 'cloud_done'
-      })
-    },
-    clean(index) {
-      this.$q.dialog({
-        dark: true,
-        title: 'Confirm',
-        message: 'Are you sure you want to delete?',
-        color: 'warning',
-        cancel: true,
-        persistent: true
-      }).onOk(() => {
-        this.$q.notify({
-        message: 'Delete task',
-        color: 'red',
-        textColor: 'white',
-        icon: 'cloud_done'
-      })
-        this.tasks.splice(index, 1)
-      })
-    }
-  }
+  // created(){
+  //   this.listTasks();
+  // },
+  // methods: {
+  //   async listTasks(){
+  //     try {
+  //       const resDb = await db.collection('Tasks').get();
+  //       resDb.forEach(res => {
+  //         const task = {
+  //           id: res.id,
+  //           title: res.data().title,
+  //           state: res.data().state
+  //         }
+  //         this.tasks.push(task);
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   },
+  //   // saveWork () {
+  //   //   this.tasks.push({
+  //   //     title: this.editor,
+  //   //     state: false,
+  //   //   })
+  //   //   this.editor = '';
+  //   //   this.$q.notify({
+  //   //     message: 'Saved task',
+  //   //     color: 'green-8',
+  //   //     textColor: 'white',
+  //   //     icon: 'cloud_done'
+  //   //   })
+  //   // },
+  //   // clean(index) {
+  //   //   this.$q.dialog({
+  //   //     dark: true,
+  //   //     title: 'Confirm',
+  //   //     message: 'Are you sure you want to delete?',
+  //   //     color: 'warning',
+  //   //     cancel: true,
+  //   //     persistent: true
+  //   //   }).onOk(() => {
+  //   //     this.$q.notify({
+  //   //     message: 'Delete task',
+  //   //     color: 'red',
+  //   //     textColor: 'white',
+  //   //     icon: 'cloud_done'
+  //   //   })
+  //   //     this.tasks.splice(index, 1)
+  //   //   })
+  //   // }
+  // }
 }
 </script>
 

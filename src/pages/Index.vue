@@ -17,8 +17,8 @@
       ]"
     />
     <div>
-      <CardTask
-      dark flat bordered v-for="(item, index) in tasks" :key="index"
+      <CardTask :tasks="tasks"
+      dark flat bordered
       ></CardTask>
     </div>
     <!-- <q-card class="row q-pa-md q-gutter-sm"
@@ -57,7 +57,6 @@ export default {
   name: 'PageIndex',
   data() {
     return {
-      green: false,
       editor: '',
       tasks: []
     }
@@ -70,6 +69,7 @@ export default {
       try {
         const resDb = await db.collection('Tasks').get();
         resDb.forEach(res => {
+          debugger
           const task = {
             id: res.id,
             title: res.data().title,
