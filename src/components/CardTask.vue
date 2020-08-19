@@ -11,13 +11,14 @@
       <q-toggle @click="item.state = !item.state" v-model="item.state" color="green" />
       <q-card-section :class="item.state ? 'through' : ''" class="col" v-html="item.title" />
 
-      <q-btn class="q-pa-xs" rounded color="primary" @click="item.state = !item.state">Edit</q-btn>
+      <q-btn class="q-pa-xs" rounded color="primary" @click="edit(index, item.id)">Edit</q-btn>
       <q-btn class="q-pa-xs" rounded color="red" @click="clean(index, item.id)">Delete</q-btn>
     </q-card>
   </div>
 </template>
 
 <script>
+import Index from "pages/Index.vue";
 import { db } from "boot/firebase";
 export default {
   components: {},
@@ -25,8 +26,11 @@ export default {
   props: ["tasks"],
   data() {
     return {
+      editor: '',
       state: false,
-      tasks: [],
+      index: null,
+      modoEdicion: false,
+      id: null
     };
   },
   created() {
@@ -74,6 +78,12 @@ export default {
 
           this.tasks.splice(index, 1);
         });
+    },
+    edit(index, id) {
+      this.modoEdicion = true;
+      this.index = index;
+      this.id = id;
+      this.editor = this.tasks[index].title;
     },
   },
 };

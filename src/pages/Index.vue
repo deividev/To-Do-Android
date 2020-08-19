@@ -1,6 +1,8 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <q-editor
+
+  <!-- Save -->
+    <q-editor v-if="!modoEdicion"
       dark
       v-model="editor"
       :definitions="{
@@ -9,6 +11,23 @@
           icon: 'save',
           label: 'Save',
           handler: saveWork
+        },
+      }"
+      :toolbar="[
+        ['bold', 'italic', 'strike', 'underline'],
+        ['save']
+      ]"
+    />
+  <!-- Edit -->
+    <q-editor v-else
+      dark
+      v-model="editor"
+      :definitions="{
+        save: {
+          tip: 'Update task',
+          icon: 'update',
+          label: 'Update',
+          handler: updateWork
         },
       }"
       :toolbar="[
@@ -33,13 +52,20 @@ import { db } from "boot/firebase";
 export default {
   components: { CardTask },
   name: 'PageIndex',
+  props:['index, modoEdicion, id, editor'],
   data() {
     return {
       editor: '',
-      tasks: []
+      tasks: [],
+      index: null,
+      modoEdicion: false,
+      id: null
     }
   },
   methods: {
+    async updateWork() {
+      console.log(editar);
+    },
     async saveWork () {
       try {
 
