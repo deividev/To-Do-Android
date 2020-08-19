@@ -40,18 +40,30 @@ export default {
     }
   },
   methods: {
-    saveWork () {
-      this.tasks.push({
-        title: this.editor,
-        state: false,
-      })
-      this.editor = '';
-      this.$q.notify({
-        message: 'Saved task',
-        color: 'green-8',
-        textColor: 'white',
-        icon: 'cloud_done'
-      })
+    async saveWork () {
+      try {
+
+        const resDb = await db. collection('Tasks').add({
+          title: this.editor,
+          state: false
+        })
+        this.tasks.push({
+          title: this.editor,
+          state: false,
+          id: resDb.id
+        })
+        this.editor = '';
+        this.$q.notify({
+          message: 'Saved task',
+          color: 'green-8',
+          textColor: 'white',
+          icon: 'cloud_done'
+        })
+
+      } catch (error) {
+        console.log(error);
+      }
+
     },
   }
 }
